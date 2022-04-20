@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="UFVZooCSS.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Tickets Page</title>
+</head>
+<body>
+<div class="headbanner">
+    <h1 style="font-size: 60px"> Fraser Valley Zoo </h1>
+</div>
+
+<ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a class="active" href="tickets.html">Tickets</a></li>
+    <li><a href="help.html">Help</a></li>
+    <li><a href="references.html">References</a></li>
+</ul>
+
+<div class="mainpage">
+
+    <div class="col">
+        <div class="textbox" style="height: 300px">
+            <h1>WEEKLY SCHEDULE:</h1>
+            <h2>Monday: CLOSED <br>
+                Tuesday: 10AM- 4PM <br>
+                Wednesday: 10AM - 4PM <br>
+                Thursday: 10AM - 4PM <br>
+                Friday: 9AM - 6PM <br>
+                Saturday: 9AM - 8PM <br>
+                Sunday: 9AM - 8PM</h2>
+        </div>
+        <br>
+        <img class="img1" src="images/Zebra2.jpg" height="550px" width="500px">
+    </div>
+
+    <div class="col">
+        <div class="textbox" style="height: 300px">
+            <form id="usrform">
+                <label for="firstname">First name:</label>
+                <input type="text" id="firstname" name="firstname"> <br>
+                <label for="lastname">Last name:</label>
+                <input type="text" id="lastname" name="lastname"> <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"> <br>
+                <label for="kids">How many kids? (under 17):</label>
+                <input type="number" id="kids" name="kids" min="0" max="10"> <br>
+                <label for="adults">How many adults? (18+):</label>
+                <input type="number" id="adults" name="adults" min="0" max="10"> <br>
+                <label for="seniors">How many seniors (65+):</label>
+                <input type="number" id="seniors" name="seniors" min="0" max="10"> <br>
+                <textarea rows="4" cols="50" name="comment" form="usrform"> Special requests... </textarea> <br>
+                <input type="submit" value="Submit"> <br> <br> <!-- If this was real this would submit to somewhere-->
+                Your tickets and prices will be emailed as soon as you click submit!
+            </form>
+        </div>
+        <br>
+        <img src="images/ZooLogo.png" height="550px" width="550px">
+    </div>
+
+    <div class="col">
+        <div class="textbox" style="height: 300px">
+            <h1>TICKET PRICES:</h1>
+            <h2>Kids: $5 <br>
+                Students: $10 <br>
+                Adults: $15 <br>
+                Family Combo: $30 <br>
+                Seniors: $7.50</h2>
+        </div>
+        <br>
+        <img class="img1" src="images/Lion2.jpg" height="550px" width="550px">
+    </div>
+</div>
+
+</body>
+</html>
