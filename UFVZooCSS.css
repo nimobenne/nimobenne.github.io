@@ -1,0 +1,83 @@
+/*Best viewed on a computer screen*/
+html {
+    font-family: "Tw Cen MT", serif;
+}
+
+body {
+    margin: 0;
+    background-image: url("images/hollowed-boxes.svg");
+}
+
+.headbanner {
+    text-align: center;
+    font-size: 30px;
+    padding: 20px;
+    background: #B6CC76;
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+
+/*NAV BAR CSS*/
+ul {
+    list-style-type: none;
+    margin-top: 140px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #487346;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #89cc7c;
+}
+
+.active {
+    background-color: #488c46;
+}
+
+/*MAIN PAGE CSS*/
+.col {
+    float: left;
+    width: 33.33%;
+    padding-top: 200px;
+    text-align: center;
+}
+
+.img1 {
+    border: 2px solid black;
+}
+
+.img2 {
+    border-radius: 50%;
+}
+
+.textbox {
+    background: rgba(139, 171, 134, 0.85);
+    padding-top: 10px;
+    padding-bottom: 2px;
+    border: 2px solid #488c46;
+    text-align: center;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    background: rgba(139, 171, 134, 0.85);
+    border: 2px solid #000000;
+    padding: 5px 70px 5px 70px;
+}
