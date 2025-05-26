@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Need assistance? Contact Fraser Valley Zoo for support and info."/>
+    <meta name="keywords" content="zoo help, contact Fraser Valley Zoo, FAQ, customer support"/>
+    <meta name="author" content="Fraser Valley Zoo"/>
+    <link rel="stylesheet" type="text/css" href="/zooProject/css/UFVZooCSS.css"/>
+    <title>Fraser Valley Zoo - Help</title>
+</head>
+<body>
+<!-- Header Navigation -->
+<header>
+    <h1>Help & Contact</h1>
+    <nav>
+        <a href="zoo.html">Home</a>
+        <a href="tickets.html">Tickets</a>
+        <a href="help.html">Help</a>
+        <a href="references.html">References</a>
+    </nav>
+</header>
+
+<!-- Main Help Content -->
+<main>
+    <section class="textbox">
+        <h2>Frequently Asked Questions</h2>
+        <ul>
+            <li><strong>What are your hours?</strong> Open daily from 9AM to 5PM.</li>
+            <li><strong>Are pets allowed?</strong> No outside pets permitted for animal safety.</li>
+            <li><strong>Do you offer parking?</strong> Yes, free visitor parking is available onsite.</li>
+        </ul>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="textbox">
+        <h2>Contact Us</h2>
+        <form id="helpForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required/>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required/>
+
+            <label for="message">Your Question:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Send</button>
+
+            <!-- Confirmation -->
+            <div id="helpConfirmation" class="confirmation">Thank you! Your message has been sent. We'll respond
+                shortly.
+            </div>
+        </form>
+    </section>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <p>© 2023 Fraser Valley Zoo | Open Daily 9AM–6PM | <a href="contact.html">Contact Us</a></p>
+</footer>
+
+<!-- Form Submission Script -->
+<script>
+    document.getElementById('helpForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.getElementById('helpConfirmation').style.display = 'block';
+        this.reset();
+    });
+</script>
+</body>
+</html>
