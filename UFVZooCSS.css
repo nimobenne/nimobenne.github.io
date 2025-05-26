@@ -1,84 +1,171 @@
-/*Best viewed on a computer screen*/
-html {
-    font-family: "Tw Cen MT", serif;
-    color: white;
+/* ========== Global Layout ========== */
+:root {
+  --accent1: #B6CC76;
+  --accent2: #768c3a;
+  --accent3: #96ac58;
+  --accent4: #4c8e43;
+  --accent5: #6aac5f;
+  --accent6: #487346;
+  --accent7: #89CC7C;
+  --bg-contrast: #f9f9f9;
 }
 
 body {
-    margin: 0;
-    background-image: url("images/hollowed-boxes.svg");
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url("images/hollowed-boxes.svg") repeat;
+  background-size: contain;
+  color: #333;
 }
 
-.headbanner {
-    text-align: center;
-    font-size: 30px;
-    padding: 20px;
-    background: #B6CC76;
-    width: 100%;
-    position: fixed;
-    top: 0;
+header, main {
+  padding: 20px;
+  text-align: center;
 }
 
-/*NAV BAR CSS*/
-ul {
-    list-style-type: none;
-    margin-top: 140px;
-    padding: 0;
-    overflow: hidden;
-    background-color: #487346;
-    position: fixed;
-    top: 0;
-    width: 100%;
+header {
+  background-color: var(--bg-contrast);
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 960px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
 }
 
-li {
-    float: left;
+nav {
+  background-color: var(--bg-contrast);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+  display: inline-block;
 }
 
-li a {
-    display: block;
-    color: #000000;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: var(--accent4);
+  font-weight: bold;
+  padding: 5px 8px;
+  border-radius: 4px;
 }
 
-li a:hover:not(.active) {
-    background-color: #89cc7c;
+nav a:hover {
+  color: var(--accent6);
+  background-color: rgba(118, 140, 58, 0.1);
 }
 
-.active {
-    background-color: #488c46;
-}
-
-/*MAIN PAGE CSS*/
-.col {
-    float: left;
-    width: 33.33%;
-    padding-top: 200px;
-    text-align: center;
-}
-
-.img1 {
-    border: 2px solid black;
-}
-
-.img2 {
-    border-radius: 50%;
+h1, h2, h3 {
+  color: var(--accent2);
+  margin-bottom: 10px;
 }
 
 .textbox {
-    background: rgba(139, 171, 134, 0.85);
-    padding-top: 10px;
-    padding-bottom: 2px;
-    border: 2px solid #488c46;
-    text-align: center;
+  background: var(--bg-contrast);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.link {
-    text-decoration: none;
-    color: black;
-    background: rgba(139, 171, 134, 0.85);
-    border: 2px solid #000000;
-    padding: 5px 70px 5px 70px;
+.img {
+  max-width: 5%;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 8px;
+  align-content: center;
+}
+
+.imgAnimal {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 8px;
+  align-content: center;
+}
+
+footer {
+      background: var(--bg-contrast);
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #333;
+    }
+
+/* ========== Flex Layout ========== */
+.mainpage, .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.col {
+  flex: 1 1 30%;
+  min-width: 250px;
+  padding: 15px;
+  box-sizing: border-box;
+  background: var(--bg-contrast);
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.06);
+}
+
+/* ========== Forms ========== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input, textarea, select, button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent3);
+  outline: none;
+}
+
+button {
+  background: var(--accent4);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  border-radius: 6px;
+}
+
+button:hover {
+  background: var(--accent2);
+}
+
+/* ========== Confirmation Message ========== */
+.confirmation {
+  background: #e6ffe6;
+  border: 1px solid var(--accent6);
+  color: var(--accent6);
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  display: none;
+}
+
+/* ========== Media Queries ========== */
+@media screen and (max-width: 768px) {
+  .mainpage, .row {
+    flex-direction: column;
+  }
+  .col {
+    width: 100%;
+  }
+  nav a {
+    display: block;
+    margin: 10px auto;
+  }
 }

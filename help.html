@@ -1,84 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="UFVZooCSS.css" rel="stylesheet">
-    <meta charset="UTF-8">
-    <title>Help Page</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Need assistance? Contact Fraser Valley Zoo for support and info."/>
+    <meta name="keywords" content="zoo help, contact Fraser Valley Zoo, FAQ, customer support"/>
+    <meta name="author" content="Fraser Valley Zoo"/>
+    <title>Fraser Valley Zoo - Help</title>
+    <link rel="stylesheet" href="UFVZooCSS.css"/>
 </head>
 <body>
-<div class="headbanner">
-    <h1 style="font-size: 60px"> FRASER VALLEY ZOO </h1>
-</div>
+<!-- Header Navigation -->
+<header>
+    <h1>Help & Contact</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tickets.html">Tickets</a>
+        <a href="help.html">Help</a>
+        <a href="references.html">References</a>
+    </nav>
+</header>
 
-<ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="tickets.html">Tickets</a></li>
-    <li><a class="active" href="help.html">Help</a></li>
-    <li><a href="references.html">References</a></li>
-</ul>
+<!-- Main Help Content -->
+<main>
+    <section class="textbox">
+        <h2>Frequently Asked Questions</h2>
+        <ul>
+            <li><strong>What are your hours?</strong> Open daily from 9AM to 5PM.</li>
+            <li><strong>Are pets allowed?</strong> No outside pets permitted for animal safety.</li>
+            <li><strong>Do you offer parking?</strong> Yes, free visitor parking is available onsite.</li>
+        </ul>
+    </section>
 
-<div class="mainpage">
-    <div class="col">
-        <img class="img1" src="images/ContactUs.jpg" width="615px" height="480px">
-        <div class="textbox" style="height: 600px">
-            <h1>Contact Info</h1>
-            <p>33844 King Rd, Abbotsford, BC V2S 7M7</p> <br>
-            <h2>Visitor Information</h2>
-            <p>Telephone: +1-604-226-1234 <br>
-                Email: info@fraservallyzoo.ca</p> <br>
-            <h2>Reservations</h2>
-            <p>Telephone: +1-604-226-2134 <br>
-                Email: reservations@fraservalleyzoo.ca</p> <br>
-            <h2>Helpdesk</h2>
-            <p>Telephone: +1-604-226-4321 <br>
-                Email: helpdesk@fraservalleyzoo.ca</p>
-        </div>
-    </div>
+    <!-- Contact Form Section -->
+    <section class="textbox">
+        <h2>Contact Us</h2>
+        <form id="helpForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required/>
 
-    <div class="col">
-        <div class="textbox" style="height: 600px">
-            <h1>FAQ</h1>
-            <h2>How long is a ticket valid?</h2>
-            <p>As soon as you enter the Zoo you may not leave and reenter. <br>
-                You may reside in the zoo as long as we are open.</p>
-            <h2>Do I have to bring my ID as proof of age?</h2>
-            <p>Yes, we check the guests age for the allocated ticket.</p>
-            <h2>What is the group limit for reservations?</h2>
-            <p>We currently have a group limit of 20 people.</p>
-            <h2>Is there free parking?</h2>
-            <p>Yes, we do provide free parking.</p>
-            <h2>Are there any tours provided by the Zoo?</h2>
-            <p> Yes, we have a few tours that occur at different times during the day. <br>
-                All rides and tickets are included with the purchase of your ticket. <br>
-                To find out the exact times of the tours please contact our visitor information.</p>
-        </div>
-        <img class="img1" src="images/Help1.jpg" width="615px" height="480px">
-    </div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required/>
 
-    <div class="col">
-        <img class="img1" src="images/Msg.jpg" width="615px" height="480px">
-        <div class="textbox" style="height: 600px;">
-            <h1>Further Help?</h1>
-            <form action="" id="helpform">
-                <p>What would you categorize the issue?</p>
-                <input type="radio" id="incident" name="helptype">
-                <label for="incident">Incident Ticket</label>
-                <input type="radio" id="service" name="helptype">
-                <label for="service">Service Ticket</label>
-                <input type="radio" id="changerefund" name="helptype">
-                <label for="changerefund">Change/Refund Ticket</label>
-                <input type="radio" id="other" name="helptype">
-                <label for="other">Other Ticket</label>
-                <br>
-                <textarea rows="10" cols="50" name="comment" form="helpform"> Please comment here...</textarea>
-                <br>
-                <label for="email">Email:</label>
-                <input type="email" id="email">
-                <input type="submit" value="Submit Ticket"> <!-- If this was real this would submit to somewhere-->
-            </form>
-        </div>
-    </div>
-</div>
+            <label for="message">Your Question:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
 
+            <button type="submit">Send</button>
+
+            <!-- Confirmation -->
+            <div id="helpConfirmation" class="confirmation">Thank you! Your message has been sent. We'll respond
+                shortly.
+            </div>
+        </form>
+    </section>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <p>© 2023 Fraser Valley Zoo | Open Daily 9AM–6PM | <a href="contact.html">Contact Us</a></p>
+</footer>
+
+<!-- Form Submission Script -->
+<script>
+    document.getElementById('helpForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.getElementById('helpConfirmation').style.display = 'block';
+        this.reset();
+    });
+</script>
 </body>
 </html>
