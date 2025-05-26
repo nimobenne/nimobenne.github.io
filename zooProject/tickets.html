@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Buy zoo tickets online and plan your visit to Fraser Valley Zoo."/>
+    <meta name="keywords" content="zoo tickets, Fraser Valley Zoo, group discounts, family fun"/>
+    <meta name="author" content="Fraser Valley Zoo"/>
+    <link rel="stylesheet" type="text/css" href="/zooProject/css/UFVZooCSS.css"/>
+    <title>Fraser Valley Zoo - Tickets</title>
+</head>
+<body>
+<!-- Header Navigation -->
+<header>
+    <h1>Buy Tickets</h1>
+    <nav>
+        <a href="zoo.html">Home</a>
+        <a href="tickets.html">Tickets</a>
+        <a href="help.html">Help</a>
+        <a href="references.html">References</a>
+    </nav>
+</header>
+
+<!-- Main Content Section -->
+<main>
+    <section class="textbox">
+        <h2>Plan Your Visit</h2>
+        <form id="ticketForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required/>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required/>
+
+            <label for="adults">Number of Adults:</label>
+            <input type="number" id="adults" name="adults" min="0" value="0" required/>
+
+            <label for="children">Number of Children:</label>
+            <input type="number" id="children" name="children" min="0" value="0" required/>
+
+            <label for="seniors">Number of Seniors:</label>
+            <input type="number" id="seniors" name="seniors" min="0" value="0" required/>
+
+            <button type="submit">Submit Order</button>
+
+            <!-- Confirmation Message -->
+            <div id="confirmation" class="confirmation">Thank you! Your ticket order has been submitted.</div>
+        </form>
+    </section>
+</main>
+
+<!-- Footer Section -->
+<footer>
+    <p>© 2023 Fraser Valley Zoo | Open Daily 9AM–6PM | <a href="contact.html">Contact Us</a></p>
+</footer>
+
+<!-- Form Submission Script -->
+<script>
+    document.getElementById('ticketForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // prevent actual submission
+        document.getElementById('confirmation').style.display = 'block';
+        this.reset();
+    });
+</script>
+</body>
+</html>

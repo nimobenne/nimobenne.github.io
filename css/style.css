@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #2c3645;
+  color: #fff;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7c7d80;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+main.home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.projects-list, .contact-form {
+  flex: 1;
+  min-width: 300px;
+  background-color: #8099c2;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+form input, form textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: none;
+}
+
+form button {
+  background-color: #2c3645;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Validation feedback styles */
+.error {
+  color: #ff6b6b;
+  font-size: 0.9em;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input.valid, textarea.valid {
+  border: 2px solid #4caf50;
+}
+
+input.invalid, textarea.invalid {
+  border: 2px solid #ff6b6b;
+}
