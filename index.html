@@ -1,64 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="UFVZooCSS.css" rel="stylesheet">
-    <meta charset="UTF-8">
-    <title>Main Page</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description"
+          content="Fraser Valley Zoo - Explore our animal exhibits, buy tickets, and plan your visit."/>
+    <meta name="keywords" content="Fraser Valley Zoo, zoo tickets, zoo help, zoo references"/>
+    <meta name="author" content="Fraser Valley Zoo"/>
+    <title>Fraser Valley Zoo - Home</title>
+    <link rel="stylesheet" href="UFVZooCSS.css"/>
 </head>
 <body>
-<div class="headbanner">
-    <h1 style="font-size: 60px"> FRASER VALLEY ZOO </h1>
-</div>
+<!-- Header Navigation -->
+<header>
+    <h1>Welcome to the Fraser Valley Zoo</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tickets.html">Tickets</a>
+        <a href="help.html">Help</a>
+        <a href="references.html">References</a>
+    </nav>
+</header>
 
-<ul>
-    <li><a class="active" href="index.html">Home</a></li>
-    <li><a href="tickets.html">Tickets</a></li>
-    <li><a href="help.html">Help</a></li>
-    <li><a href="references.html">References</a></li>
-</ul>
+<!-- Main Content Section -->
+<main>
+    <section class="textbox">
+        <h2>About Our Zoo</h2>
+        <p>Located in the heart of Fraser Valley, our zoo is home to dozens of animal species from around the world.
+            Discover wildlife conservation efforts, enjoy daily feedings, and plan a fun day out for the whole
+            family.</p>
+        <img src="images/Bear.jpg" alt="Bear" class="imgAnimal">
+    </section>
 
-<div class="mainpage">
-
-    <div class="col">
-        <div class="textbox">
-            <h1>OPENING THIS SUMMER</h1>
-            <h2>SUMMER DEALS!</h2>
+    <!-- Flex Row with Image Cards -->
+    <section class="mainpage">
+        <div class="col">
+            <h3>Tickets</h3>
+            <img src="images/ticket.png" alt="Ticket Booth" class="img"/>
+            <p>Buy your tickets online and skip the line. Discounts available for groups and families.</p>
+            <img src="images/Panda.jpg" alt="Panda" class="imgAnimal">
         </div>
-        <br>
-        <img class="img1" height="400px" src="images/Elephant.jpg" width="500px">
-        <h1><a class="link" href="help.html">HELP</a></h1>
-        <img class="img1" height="400px" src="images/Lion.jpg" width="500px">
-    </div>
-
-    <div class="col">
-        <div class="textbox">
-            <h1>Experience the first Zoo in Abbotsford!</h1>
-            <h2>$5 for Kids / 10$ for Students</h2>
+        <div class="col">
+            <h3>Get Help</h3>
+            <img src="images/help.png" alt="Information Desk" class="img"/>
+            <p>Find answers to common questions or contact our staff for assistance.</p>
+            <img src="images/Giraffe.jpg" alt="Giraffe" class="imgAnimal">
         </div>
-        <br> <br> <br>
-        <div class="textbox">
-            <p>Join us on a unique chance to visit in one of the most diverse zoos in BC. <br>
-                With all kinds of attractions, we are sure you will have an unforgettable experience. <br>
-                Perfect for young and old to share your love for animals with 70% of the earnings going towards taking care of the animals. <br>
-                We are looking to expand each year to hopefully become BC's biggest zoo!</p>
+        <div class="col">
+            <h3>References</h3>
+            <img src="images/audit.png" alt="Library and References" class="img"/>
+            <p>Explore educational resources about our animals and conservation initiatives.</p>
+            <img src="images/Flamingo.jpg" alt="Flamingo" class="imgAnimal">
         </div>
-        <br>
-        <img class="img2" height="550px" src="images/Giraffe.jpg" width="500px" style="padding-top: 150px">
-        <!--Cool smoothing effect on the picture-->
-    </div>
+    </section>
+</main>
 
-    <div class="col">
-        <div class="textbox">
-            <h1>BIGGEST ZOO IN BC</h1>
-            <h2>SUMMER DEALS!</h2>
-        </div>
-        <br>
-        <img class="img1" height="400px" src="images/Panda.jpg" width="500px">
-        <h1><a class="link" href="tickets.html">TICKETS</a></h1>
-        <img class="img1" height="400px" src="images/Zebra.jpg" width="500px">
-    </div>
-
-</div>
-
+<!-- Footer Section -->
+<footer>
+    <p>© 2023 Fraser Valley Zoo | Open Daily 9AM–6PM | <a href="contact.html">Contact Us</a></p>
+</footer>
 </body>
 </html>
