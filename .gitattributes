@@ -1,5 +1,6 @@
 # Auto-detect text files and normalize line endings
 * text=auto
+.gitattributes text eol=lf
 
 # Force LF for these file types
 *.js text eol=lf
