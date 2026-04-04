@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Audio Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #1a1a1a;
+        }
+        p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .upload-label {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .upload-label:hover {
+            background-color: #0056b3;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .control-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .control-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .control-button.stop { background-color: #dc3545; }
+        .control-button.pause { background-color: #ffc107; color: #333;}
+
+        #status {
+            margin-top: 20px;
+            font-style: italic;
+            color: #555;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>PDF to Audio Converter</h1>
+        <p>Upload a PDF and the browser will read it out loud for you. All processing is done locally on your device.</p>
+
+        <label for="pdf-file" class="upload-label">Select PDF File</label>
+        <input type="file" id="pdf-file" accept=".pdf">
+
+        <div id="status">Select a file to begin.</div>
+
+        <div class="controls">
+            <button id="speak-button" class="control-button" disabled>Speak</button>
+            <button id="pause-button" class="control-button pause" disabled>Pause</button>
+            <button id="stop-button" class="control-button stop" disabled>Stop</button>
+        </div>
+    </div>
+
+    <script>
+        // Set the worker source for PDF.js from the CDN
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
+
+        // Get references to HTML elements
+        const pdfFileInput = document.getElementById('pdf-file');
+        const statusDisplay = document.getElementById('status');
+        const speakButton = document.getElementById('speak-button');
+        const pauseButton = document.getElementById('pause-button');
+        const stopButton = document.getElementById('stop-button');
+
+        let extractedText = "";
+        let isPaused = false;
+
+        // --- Event Listeners ---
+
+        pdfFileInput.addEventListener('change', handleFileSelect);
+        speakButton.addEventListener('click', speakText);
+        pauseButton.addEventListener('click', togglePauseResume);
+        stopButton.addEventListener('click', stopSpeech);
+
+
+        // --- Core Functions ---
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file || file.type !== 'application/pdf') {
+                statusDisplay.textContent = "Please select a valid PDF file.";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                resetState();
+                statusDisplay.textContent = 'Processing PDF... please wait.';
+                try {
+                    const pdf = await pdfjsLib.getDocument({ data: e.target.result }).promise;
+                    let textContent = '';
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const content = await page.getTextContent();
+                        textContent += content.items.map(item => item.str).join(' ');
+                    }
+                    extractedText = textContent;
+                    statusDisplay.textContent = `PDF processed! Contains ${extractedText.length.toLocaleString()} characters.`;
+                    speakButton.disabled = false;
+                } catch (error) {
+                    console.error('Error processing PDF:', error);
+                    statusDisplay.textContent = 'Failed to process the PDF file.';
+                    resetState();
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function speakText() {
+            if (!extractedText || speechSynthesis.speaking) return;
+            const utterance = new SpeechSynthesisUtterance(extractedText);
+
+            utterance.onstart = () => {
+                speakButton.disabled = true;
+                pauseButton.disabled = false;
+                stopButton.disabled = false;
+                isPaused = false;
+                pauseButton.textContent = 'Pause';
+            };
+
+            utterance.onend = () => {
+                resetControls();
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        function togglePauseResume() {
+            if (speechSynthesis.speaking) {
+                if (isPaused) {
+                    speechSynthesis.resume();
+                    pauseButton.textContent = 'Pause';
+                } else {
+                    speechSynthesis.pause();
+                    pauseButton.textContent = 'Resume';
+                }
+                isPaused = !isPaused;
+            }
+        }
+
+        function stopSpeech() {
+            speechSynthesis.cancel();
+            resetControls();
+        }
+
+        // --- Helper Functions ---
+
+        function resetState() {
+            stopSpeech();
+            extractedText = "";
+            speakButton.disabled = true;
+        }
+
+        function resetControls() {
+            speakButton.disabled = false;
+            pauseButton.disabled = true;
+            stopButton.disabled = true;
+            isPaused = false;
+            pauseButton.textContent = 'Pause';
+            statusDisplay.textContent = 'Ready to speak again or select a new file.';
+        }
+    </script>
+</body>
+</html>

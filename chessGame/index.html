@@ -1,0 +1,292 @@
+<!--
+  Chess Game with:
+  - Full piece movement logic
+  - Turn-based play
+  - Checkmate detection
+  - Check detection message
+  - Visual check alert (red outline)
+  - Restart functionality
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess with Check Detection</title>
+  <style>
+    /* Basic styling for the chessboard UI */
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    table { border-collapse: collapse; margin: 0 auto; }
+    td {
+      width: 50px; height: 50px; font-size: 32px;
+      text-align: center; vertical-align: middle; cursor: pointer;
+    }
+    .white { background: #f0d9b5; }
+    .black { background: #b58863; }
+    .selected { outline: 2px solid red; }
+    .highlight { outline: 2px solid green; }
+    .game-over { font-size: 20px; font-weight: bold; color: red; }
+  </style>
+</head>
+<body>
+  <!-- Game UI header and controls -->
+  <h2>Chess Game - Legal Moves & Check Detection</h2>
+  <p id="turnLabel">Current Turn: White</p>
+  <div id="statusMessage" class="game-over"></div>
+  <table id="board"></table>
+  <br>
+  <button onclick="restartGame()">Restart Game</button>
+
+  <script>
+    // === Global DOM Elements and State === //
+    const board = document.getElementById("board");
+    const turnLabel = document.getElementById("turnLabel");
+    const statusMessage = document.getElementById("statusMessage");
+
+    let state, selected, legalMoves, currentPlayer, gameOver;
+
+    // Unicode symbols for pieces
+    const symbols = {
+      'p': '♟', 'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚',
+      'P': '♙', 'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔'
+    };
+
+    // === Initialize a new chess game === //
+    function initializeBoard() {
+      state = [
+        ['r','n','b','q','k','b','n','r'],
+        ['p','p','p','p','p','p','p','p'],
+        ['','','','','','','',''],
+        ['','','','','','','',''],
+        ['','','','','','','',''],
+        ['','','','','','','',''],
+        ['P','P','P','P','P','P','P','P'],
+        ['R','N','B','Q','K','B','N','R']
+      ];
+      selected = null;
+      legalMoves = [];
+      currentPlayer = 'white';
+      gameOver = false;
+      turnLabel.textContent = 'Current Turn: White';
+      statusMessage.textContent = '';
+      createBoard();
+    }
+
+    // === Helper functions for logic === //
+    const isWhite = p => p === p.toUpperCase();
+    const isBlack = p => p === p.toLowerCase();
+    const isOpponent = (p, isW) => p && ((isW && isBlack(p)) || (!isW && isWhite(p)));
+    const inBounds = (r, c) => r >= 0 && r < 8 && c >= 0 && c < 8;
+
+    // Check if a square is threatened by opponent
+    function isSquareThreatened(row, col, attackerColor) {
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const piece = state[r][c];
+          if (piece && ((attackerColor === 'white' && isWhite(piece)) || (attackerColor === 'black' && isBlack(piece)))) {
+            const moves = getLegalMoves(piece, r, c);
+            for (let [mr, mc] of moves) if (mr === row && mc === col) return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    // Determine if a player is in checkmate
+    function isCheckmate(color) {
+      const whiteTurn = color === 'white';
+      const kingChar = whiteTurn ? 'K' : 'k';
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const piece = state[r][c];
+          if (piece && ((whiteTurn && isWhite(piece)) || (!whiteTurn && isBlack(piece)))) {
+            const moves = getLegalMoves(piece, r, c);
+            for (let [tr, tc] of moves) {
+              const backupTarget = state[tr][tc];
+              const backupFrom = state[r][c];
+              state[tr][tc] = piece;
+              state[r][c] = '';
+              let kingRow = -1, kingCol = -1;
+              for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                  if (state[i][j] === kingChar) {
+                    kingRow = i;
+                    kingCol = j;
+                  }
+                }
+              }
+              const stillInCheck = isSquareThreatened(kingRow, kingCol, whiteTurn ? 'black' : 'white');
+              state[r][c] = backupFrom;
+              state[tr][tc] = backupTarget;
+              if (!stillInCheck) return false;
+            }
+          }
+        }
+      }
+      return true;
+    }
+
+    // Get legal moves for a piece at position r,c
+    function getLegalMoves(p, r, c) {
+      const m = [], L = p.toLowerCase(), W = isWhite(p);
+      const dir = {
+        'n': [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]],
+        'b': [[-1,-1],[-1,1],[1,-1],[1,1]],
+        'r': [[-1,0],[1,0],[0,-1],[0,1]],
+        'q': [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]],
+        'k': [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]]
+      };
+
+      if (L === 'p') {
+        const d = W ? -1 : 1, s = W ? 6 : 1;
+        if (inBounds(r+d,c) && state[r+d][c]==='') m.push([r+d,c]);
+        if (r===s && state[r+d][c]==='' && state[r+2*d][c]==='') m.push([r+2*d,c]);
+        for (let dx of [-1,1]) {
+          let nr=r+d, nc=c+dx;
+          if (inBounds(nr,nc) && isOpponent(state[nr][nc],W)) m.push([nr,nc]);
+        }
+      } else if (L === 'n') {
+        for (let [dr,dc] of dir.n) {
+          const nr=r+dr, nc=c+dc;
+          if (inBounds(nr,nc) && (!state[nr][nc] || isOpponent(state[nr][nc],W))) m.push([nr,nc]);
+        }
+      } else if (["b","r","q"].includes(L)) {
+        for (let [dr,dc] of dir[L]) {
+          let nr=r+dr, nc=c+dc;
+          while (inBounds(nr,nc)) {
+            if (!state[nr][nc]) m.push([nr,nc]);
+            else { if (isOpponent(state[nr][nc],W)) m.push([nr,nc]); break; }
+            nr+=dr; nc+=dc;
+          }
+        }
+      } else if (L === 'k') {
+  for (let [dr,dc] of dir.k) {
+    const nr=r+dr, nc=c+dc;
+    if (inBounds(nr,nc) && (!state[nr][nc] || isOpponent(state[nr][nc],W))) m.push([nr,nc]);
+  }
+}
+return m;
+    }
+
+    // Render the chess board UI with all highlights
+    function createBoard() {
+      board.innerHTML = '';
+      const kingChar = currentPlayer === 'white' ? 'K' : 'k';
+      let kingPos = null;
+      for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if (state[r][c] === kingChar) kingPos = [r, c];
+      for (let row = 0; row < 8; row++) {
+        const tr = document.createElement("tr");
+        for (let col = 0; col < 8; col++) {
+          const td = document.createElement("td");
+          td.dataset.row = row;
+          td.dataset.col = col;
+          td.className = (row + col) % 2 === 0 ? 'white' : 'black';
+          const piece = state[row][col];
+          if (piece) td.textContent = symbols[piece];
+          if (selected && selected.dataset.row == row && selected.dataset.col == col)
+            td.classList.add('selected');
+          for (let [r, c] of legalMoves) if (r === row && c === col) td.classList.add('highlight');
+          if (kingPos && row === kingPos[0] && col === kingPos[1]) {
+            const threat = isSquareThreatened(row, col, currentPlayer === 'white' ? 'black' : 'white');
+            if (threat) td.style.outline = '3px solid red';
+          }
+          td.onclick = handleClick;
+          tr.appendChild(td);
+        }
+        board.appendChild(tr);
+      }
+    }
+
+    // Handle piece selection and movement
+    function handleClick(e) {
+      if (gameOver) return;
+      const cell = e.target;
+      const row = +cell.dataset.row;
+      const col = +cell.dataset.col;
+      const piece = state[row][col];
+      if (selected) {
+        const fromRow = +selected.dataset.row;
+        const fromCol = +selected.dataset.col;
+        for (let [r, c] of legalMoves) {
+          if (r === row && c === col) {
+            state[row][col] = state[fromRow][fromCol];
+            state[fromRow][fromCol] = '';
+            const nextPlayer = currentPlayer === 'white' ? 'black' : 'white';
+            if (isCheckmate(nextPlayer)) {
+              statusMessage.textContent = `${currentPlayer.charAt(0).toUpperCase() + currentPlayer.slice(1)} wins by checkmate!`;
+              gameOver = true;
+            } else {
+              const kingChar = nextPlayer === 'white' ? 'K' : 'k';
+              let kingRow = -1, kingCol = -1;
+              for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                  if (state[i][j] === kingChar) {
+                    kingRow = i;
+                    kingCol = j;
+                  }
+                }
+              }
+              const inCheck = isSquareThreatened(kingRow, kingCol, currentPlayer);
+              statusMessage.textContent = inCheck ? `${nextPlayer.charAt(0).toUpperCase() + nextPlayer.slice(1)} is in check!` : '';
+            }
+            currentPlayer = nextPlayer;
+            turnLabel.textContent = `Current Turn: ${currentPlayer}`;
+          }
+        }
+        selected = null;
+        legalMoves = [];
+        createBoard();
+      } else if (piece && (
+        (currentPlayer === 'white' && isWhite(piece)) ||
+        (currentPlayer === 'black' && isBlack(piece))
+      )) {
+        selected = cell;
+        legalMoves = getSafeMoves(piece, row, col);
+        createBoard();
+      }
+    }
+
+    // Restart game from beginning
+    function restartGame() {
+      initializeBoard();
+    }
+
+        // === Helper: Get only king-safe legal moves === //
+    function getSafeMoves(piece, r, c) {
+      const moves = getLegalMoves(piece, r, c);
+      const safeMoves = [];
+      for (let [toR, toC] of moves) {
+        const fromPiece = state[r][c];
+        const toPiece = state[toR][toC];
+        state[toR][toC] = fromPiece;
+        state[r][c] = '';
+
+        let kingRow = -1, kingCol = -1;
+        const kingChar = currentPlayer === 'white' ? 'K' : 'k';
+        if (fromPiece === kingChar) {
+          kingRow = toR;
+          kingCol = toC;
+        } else {
+          for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+              if (state[i][j] === kingChar) {
+                kingRow = i;
+                kingCol = j;
+              }
+            }
+          }
+        }
+
+        const inCheck = isSquareThreatened(kingRow, kingCol, currentPlayer === 'white' ? 'black' : 'white');
+        state[r][c] = fromPiece;
+        state[toR][toC] = toPiece;
+        if (!inCheck) safeMoves.push([toR, toC]);
+      }
+      return safeMoves;
+    }
+
+    // Load board on page load
+    initializeBoard();
+  </script>
+</body>
+</html>
