@@ -1,51 +1,436 @@
-<!-- /nimo-portfolio/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nimo Benne | Home</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <title>Nimo — Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #1a1a1a;
+      --border: #222222;
+      --text: #e8e8e8;
+      --muted: #666666;
+      --accent: #7c6af7;
+      --accent2: #a594f9;
+      --green: #4ade80;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    section { padding: 100px 0 60px; }
+
+    #hero { padding-top: 160px; padding-bottom: 80px; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(74,222,128,0.08);
+      border: 1px solid rgba(74,222,128,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 32px;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 60px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .hero-links { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--accent); color: white; border: 1px solid transparent; }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: var(--text); border-color: #444; }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 40px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-card:hover {
+      border-color: #333;
+      background: var(--bg3);
+      transform: translateY(-2px);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .project-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .project-arrow { color: var(--muted); font-size: 18px; transition: color 0.2s; }
+    .project-card:hover .project-arrow { color: var(--text); }
+
+    .project-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(124,106,247,0.1);
+      color: var(--accent2);
+      border: 1px solid rgba(124,106,247,0.2);
+    }
+
+    .tag.green {
+      background: rgba(74,222,128,0.08);
+      color: var(--green);
+      border-color: rgba(74,222,128,0.2);
+    }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .about-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .about-card h3 {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .about-card p { font-size: 14px; color: var(--text); line-height: 1.7; }
+    .about-card.wide { grid-column: 1 / -1; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      margin-top: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer p { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 20px; }
+      section { padding: 80px 0 40px; }
+      #hero { padding-top: 120px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-card.wide { grid-column: 1; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <h1>Nimo Benne</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li><a href="projects.html">My Projects</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main class="home">
-    <section class="projects-list">
-      <h2>Projects</h2>
-      <ul>
-        <li><a href="zooProject/zoo.html">Zoo Landing Page</a></li>
-        <li><a href="chessGame/index.html">Simple Chess Game</a></li>
-        <li><a href="pdfToAudio/index.html">PDF to Audio Book</a></li>
-        <li><a href="dashMorph/dashMorph.html">DashMorph Project</a></li>
-        <li><a href="https://kikibot-chat.onrender.com">kikiBot AI Chatbot</a></li>
-      </ul>
+
+  <nav>
+    <a href="#" class="nav-logo">nimo.dev</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="https://github.com/nimobenne" target="_blank">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section id="hero">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Available — Toronto, ON
+      </div>
+      <h1>Building things<br />with <span>code and intent.</span></h1>
+      <p class="hero-sub">Software engineer and builder. I work on tools, products, and ideas that solve real problems — shipping fast and keeping things simple.</p>
+      <div class="hero-links">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="https://github.com/nimobenne" target="_blank" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://mentalcore.beehiiv.com" target="_blank" class="btn btn-ghost">MentalCore</a>
+      </div>
     </section>
-    <section class="contact-form">
-      <h2>Contact Me</h2>
-      <form id="contactForm" novalidate>
-        <input type="text" name="name" id="name" placeholder="Your Name" required />
-        <span class="error" id="nameError"></span>
 
-        <input type="email" name="email" id="email" placeholder="Your Email" required />
-        <span class="error" id="emailError"></span>
+    <section id="projects">
+      <p class="section-label">// projects</p>
+      <h2>Things I've built</h2>
+      <div class="projects-grid">
 
-        <textarea name="message" id="message" placeholder="Your Message" required></textarea>
-        <span class="error" id="messageError"></span>
+        <a href="https://chat-bot-widget-two.vercel.app" target="_blank" class="project-card">
+          <div class="project-top">
+            <div class="project-icon" style="background:rgba(124,106,247,0.1)">🤖</div>
+            <span class="project-arrow">↗</span>
+          </div>
+          <div>
+            <div class="project-name">WidgetAI</div>
+            <div class="project-desc">AI-powered WhatsApp booking assistant for barbershops. Checks real Google Calendar availability and confirms bookings 24/7.</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">OpenAI</span>
+            <span class="tag">Supabase</span>
+            <span class="tag green">Live</span>
+          </div>
+        </a>
 
-        <button type="submit">Send</button>
-      </form>
+        <a href="https://github.com/berniebeeee/skincare-app" target="_blank" class="project-card">
+          <div class="project-top">
+            <div class="project-icon" style="background:rgba(74,222,128,0.08)">🧴</div>
+            <span class="project-arrow">↗</span>
+          </div>
+          <div>
+            <div class="project-name">SkincareApp</div>
+            <div class="project-desc">Skincare routine tracker and skin condition logger. Tracks products, routines, and daily skin logs to surface what works.</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Supabase</span>
+            <span class="tag">TypeScript</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/nimobenne/claudeSync" target="_blank" class="project-card">
+          <div class="project-top">
+            <div class="project-icon" style="background:rgba(124,106,247,0.1)">⚡</div>
+            <span class="project-arrow">↗</span>
+          </div>
+          <div>
+            <div class="project-name">claudeSync</div>
+            <div class="project-desc">Open-source template to sync your Claude AI brain across every machine. One repo, every device, same context.</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Open Source</span>
+            <span class="tag">Claude</span>
+            <span class="tag">DevTools</span>
+            <span class="tag green">Public</span>
+          </div>
+        </a>
+
+        <a href="https://mentalcore.beehiiv.com" target="_blank" class="project-card">
+          <div class="project-top">
+            <div class="project-icon" style="background:rgba(255,255,255,0.04)">🎬</div>
+            <span class="project-arrow">↗</span>
+          </div>
+          <div>
+            <div class="project-name">MentalCore</div>
+            <div class="project-desc">Men's mental health short-form brand on YouTube Shorts and TikTok. 1M+ views. Calm, direct content for men rebuilding themselves.</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Content</span>
+            <span class="tag">Brand</span>
+            <span class="tag green">Active</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/nimobenne/chatBotAI" target="_blank" class="project-card">
+          <div class="project-top">
+            <div class="project-icon" style="background:rgba(124,106,247,0.1)">💬</div>
+            <span class="project-arrow">↗</span>
+          </div>
+          <div>
+            <div class="project-name">chatBotAI</div>
+            <div class="project-desc">Web-based AI customer support chatbot with conversation history, OpenAI responses, and escalation to human support.</div>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">OpenAI</span>
+          </div>
+        </a>
+
+      </div>
     </section>
+
+    <section id="about">
+      <p class="section-label">// about</p>
+      <h2>A bit about me</h2>
+      <div class="about-grid">
+        <div class="about-card wide">
+          <h3>background</h3>
+          <p>Software engineer based in Toronto. I build products end to end — from idea to deployment. I care about shipping fast, keeping things simple, and building things that actually get used.</p>
+        </div>
+        <div class="about-card">
+          <h3>currently</h3>
+          <p>Software Engineer in Toronto. Building MentalCore on the side — a men's mental health brand growing on YouTube Shorts and TikTok.</p>
+        </div>
+        <div class="about-card">
+          <h3>stack</h3>
+          <p>Next.js, TypeScript, Python, Supabase, Vercel. I reach for whatever ships the fastest without cutting corners on quality.</p>
+        </div>
+      </div>
+    </section>
+
   </main>
-  <script src="js/script.js"></script>
+
+  <footer>
+    <p>© 2026 nimobenne</p>
+    <div class="footer-links">
+      <a href="https://github.com/nimobenne" target="_blank">GitHub</a>
+      <a href="https://mentalcore.beehiiv.com" target="_blank">MentalCore</a>
+    </div>
+  </footer>
+
 </body>
 </html>
