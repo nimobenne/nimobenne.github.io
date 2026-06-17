@@ -5,21 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nimo Benne</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --bg2: #111111;
-      --bg3: #1a1a1a;
-      --border: #222222;
-      --text: #e8e8e8;
-      --muted: #666666;
-      --accent: #7c6af7;
-      --accent2: #a594f9;
-      --green: #4ade80;
+      --bg: #FAFAF8;
+      --bg2: #F3F3EF;
+      --text: #1A1A1A;
+      --muted: #6B7280;
+      --border: #E5E5E0;
+      --accent: #C85B2A;
+      --accent-bg: #FDF4EF;
+      --nav-h: 64px;
     }
 
     html { scroll-behavior: smooth; }
@@ -27,383 +26,543 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       line-height: 1.6;
-      min-height: 100vh;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
+      height: var(--nav-h);
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 40px;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(12px);
+      padding: 0 48px;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--accent2);
+    .nav-name {
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
       text-decoration: none;
+      letter-spacing: -0.2px;
     }
 
-    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
 
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
       font-size: 13px;
-      transition: color 0.2s;
+      font-weight: 400;
+      transition: color 0.15s;
     }
 
     .nav-links a:hover { color: var(--text); }
 
+    /* MAIN CONTAINER */
     main {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
+      padding: 0 32px;
     }
 
-    section { padding: 100px 0 60px; }
-    #hero { padding-top: 160px; padding-bottom: 80px; }
+    section { padding: 96px 0 48px; }
 
-    .status-badge {
+    /* HERO */
+    #hero {
+      padding-top: calc(var(--nav-h) + 72px);
+      padding-bottom: 72px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-text { }
+
+    .hero-available {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(74,222,128,0.08);
-      border: 1px solid rgba(74,222,128,0.2);
-      border-radius: 100px;
-      padding: 6px 14px;
+      gap: 7px;
       font-size: 12px;
-      color: var(--green);
-      font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 32px;
+      color: #16A34A;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 4px;
+      padding: 4px 10px;
+      margin-bottom: 24px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
     }
 
-    .status-dot {
-      width: 6px; height: 6px;
+    .available-dot {
+      width: 5px; height: 5px;
       border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      background: #16A34A;
     }
 
     h1 {
-      font-size: clamp(36px, 6vw, 60px);
-      font-weight: 600;
-      line-height: 1.1;
-      letter-spacing: -1.5px;
-      margin-bottom: 20px;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(44px, 6vw, 68px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      color: var(--text);
+      margin-bottom: 12px;
     }
 
-    h1 span {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      font-size: 18px;
+    .hero-role {
+      font-size: 14px;
       color: var(--muted);
-      max-width: 520px;
-      margin-bottom: 40px;
-      line-height: 1.7;
+      font-weight: 400;
+      margin-bottom: 20px;
+      letter-spacing: 0.1px;
     }
 
-    .hero-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-role span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+
+    .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 8px;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 6px;
       font-size: 13px;
       font-weight: 500;
       text-decoration: none;
-      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+      border: 1px solid transparent;
     }
 
-    .btn-primary { background: var(--accent); color: white; border: 1px solid transparent; }
-    .btn-primary:hover { background: var(--accent2); }
-    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
-    .btn-ghost:hover { color: var(--text); border-color: #444; }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
 
+    .btn-primary:hover { background: #B0501F; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover { border-color: #C8C8C0; background: var(--bg2); }
+
+    /* HERO PHOTO */
+    .hero-photo-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid var(--border);
+      background: var(--bg2);
+      display: block;
+    }
+
+    /* Photo placeholder — remove when real photo added */
+    .photo-placeholder {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* SECTION LABELS */
     .section-label {
-      font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      color: var(--accent);
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
-      margin-bottom: 12px;
+      color: var(--accent);
+      margin-bottom: 10px;
     }
 
     h2 {
-      font-size: 28px;
+      font-family: 'Fraunces', serif;
+      font-size: 30px;
       font-weight: 600;
-      letter-spacing: -0.5px;
-      margin-bottom: 40px;
+      letter-spacing: -0.8px;
+      color: var(--text);
+      margin-bottom: 36px;
+      line-height: 1.15;
     }
 
-    /* Experience */
-    .experience-list { display: flex; flex-direction: column; gap: 12px; }
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; }
 
-    .exp-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+    .exp-item {
+      display: grid;
+      grid-template-columns: 1fr 140px;
       gap: 24px;
-      transition: border-color 0.2s;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
     }
 
-    .exp-card:hover { border-color: #333; }
-
-    .exp-left { flex: 1; }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
 
     .exp-role {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .exp-company {
       font-size: 13px;
-      color: var(--accent2);
-      margin-bottom: 6px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 8px;
     }
 
     .exp-desc {
       font-size: 13px;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    .exp-right { text-align: right; flex-shrink: 0; }
+    .exp-meta { text-align: right; padding-top: 2px; }
 
     .exp-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
       margin-bottom: 6px;
+      white-space: nowrap;
     }
 
-    .exp-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
 
-    /* Projects */
-    .projects-grid {
+    .badge-current { background: var(--accent-bg); color: var(--accent); }
+    .badge-contract { background: var(--bg2); color: var(--muted); }
+
+    /* PROJECTS */
+    .projects-featured {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .projects-secondary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
 
     .project-card {
       background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       padding: 24px;
       text-decoration: none;
       color: inherit;
-      transition: all 0.2s;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     .project-card:hover {
-      border-color: #333;
-      background: var(--bg3);
-      transform: translateY(-2px);
+      border-color: #D0CFC8;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
 
-    .project-top {
+    .project-card.featured { padding: 28px; }
+
+    .project-header {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
+      align-items: flex-start;
     }
 
-    .project-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
+    .project-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
     }
 
-    .project-arrow { color: var(--muted); font-size: 18px; transition: color 0.2s; }
-    .project-card:hover .project-arrow { color: var(--text); }
+    .project-card.featured .project-name { font-size: 17px; }
 
-    .project-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .project-arrow {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .project-card:hover .project-arrow { color: var(--accent); transform: translate(2px, -2px); }
+
+    .project-tags { display: flex; gap: 5px; flex-wrap: wrap; }
 
     .tag {
-      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(124,106,247,0.1);
-      color: var(--accent2);
-      border: 1px solid rgba(124,106,247,0.2);
-    }
-
-    .tag.green {
-      background: rgba(74,222,128,0.08);
-      color: var(--green);
-      border-color: rgba(74,222,128,0.2);
-    }
-
-    /* About */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-    .about-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    .about-card h3 {
-      font-size: 13px;
       font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: #fff;
       color: var(--muted);
-      margin-bottom: 12px;
-      font-family: 'JetBrains Mono', monospace;
+      border: 1px solid var(--border);
+      letter-spacing: 0.2px;
     }
 
-    .about-card p { font-size: 14px; color: var(--text); line-height: 1.7; }
-    .about-card.wide { grid-column: 1 / -1; }
+    .tag-live {
+      background: #F0FDF4;
+      color: #16A34A;
+      border-color: #BBF7D0;
+    }
 
-    .lang-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+    /* ABOUT */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-text { }
+
+    .about-bio {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    .about-facts { display: flex; flex-direction: column; gap: 20px; }
+
+    .about-fact-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .about-fact-value {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .lang-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 
     .lang-pill {
       font-size: 12px;
+      font-weight: 500;
       padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(124,106,247,0.1);
-      color: var(--accent2);
-      border: 1px solid rgba(124,106,247,0.2);
+      border-radius: 4px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid #F5C4A8;
     }
 
-    /* Contact */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    /* Volleyball photo */
+    .vb-photo-wrap { }
 
-    .contact-card {
+    .vb-photo {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    .vb-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 10px;
+      background: var(--bg2);
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .vb-caption {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* CONTACT */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .contact-text .contact-intro {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .contact-links { display: flex; flex-direction: column; gap: 10px; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .contact-link:hover { color: var(--accent); }
+
+    .contact-link-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
       background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    .contact-card h3 {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 12px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .contact-card p { font-size: 14px; color: var(--text); line-height: 1.7; }
-    .contact-card.wide { grid-column: 1 / -1; }
-
-    .contact-card a {
-      color: var(--accent2);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 8px;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .contact-card a:hover { color: var(--text); }
-    .contact-card a:last-child { margin-bottom: 0; }
-
-    /* LinkedIn badge overrides for dark bg */
-    .li-badge-wrap {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
-    .li-badge-wrap iframe,
-    .li-badge-wrap .LI-profile-badge {
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    /* fallback link shown if JS blocked */
+
+    .contact-badge { }
+
+    /* LinkedIn badge dark theme override */
     .badge-base__link {
-      color: var(--accent2);
+      color: var(--accent);
       font-size: 13px;
       text-decoration: none;
     }
-    .badge-base__link:hover { color: var(--text); }
 
+    /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
-      padding: 32px 24px;
-      margin-top: 60px;
+      padding: 28px 32px;
+      margin-top: 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
+      max-width: 960px;
       margin-left: auto;
       margin-right: auto;
     }
 
-    footer p { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
     .footer-links a:hover { color: var(--text); }
 
-    @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .nav-links { gap: 20px; }
-      section { padding: 80px 0 40px; }
-      #hero { padding-top: 120px; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; }
-      .about-card.wide { grid-column: 1; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .contact-card.wide { grid-column: 1; }
-      .exp-card { flex-direction: column; gap: 12px; }
-      .exp-right { text-align: left; }
-      .exp-tags { justify-content: flex-start; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      main { padding: 0 20px; }
+
+      #hero {
+        grid-template-columns: 1fr;
+        padding-top: calc(var(--nav-h) + 40px);
+      }
+
+      .hero-photo-wrap { order: -1; }
+      .hero-photo, .photo-placeholder { width: 120px; height: 120px; }
+
+      .about-layout { grid-template-columns: 1fr; }
+      .vb-photo-wrap { order: -1; }
+
+      .contact-layout { grid-template-columns: 1fr; }
+
+      .projects-featured { grid-template-columns: 1fr; }
+      .projects-secondary { grid-template-columns: 1fr 1fr; }
+
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .exp-meta { text-align: left; }
+
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .projects-secondary { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .btn { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a href="#" class="nav-logo">nimo.dev</a>
+    <a href="#" class="nav-name">Nimo Benne</a>
     <ul class="nav-links">
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -414,288 +573,265 @@
 
   <main>
 
+    <!-- HERO -->
     <section id="hero">
-      <div class="status-badge">
-        <span class="status-dot"></span>
-        Toronto, ON &nbsp;·&nbsp; Open to opportunities
+      <div class="hero-text">
+        <div class="hero-available">
+          <span class="available-dot"></span>
+          Open to opportunities in Toronto
+        </div>
+        <h1>Nimo Benne</h1>
+        <p class="hero-role">
+          Technical Sales Specialist &nbsp;·&nbsp; <span>Dutch &amp; German</span> &nbsp;·&nbsp; CS Graduate
+        </p>
+        <p class="hero-desc">
+          I sell edge computing and wireless networking solutions in Toronto. CS background, six years of pro volleyball across Canada West and the German Bundesliga, and I build my own prospecting tools using Apollo and Claude.
+        </p>
+        <div class="hero-ctas">
+          <a href="mailto:nimobenne@gmail.com" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            Get in touch
+          </a>
+          <a href="https://www.linkedin.com/in/nimobenne" target="_blank" class="btn btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://github.com/nimobenne" target="_blank" class="btn btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
       </div>
-      <h1>I sell by day.<br /><span>I build because I can't stop.</span></h1>
-      <p class="hero-sub">Technical sales specialist with a Computer Science degree, native Dutch and German, and a habit of building tools to solve the problems I run into at work. Former pro athlete. Now in tech.</p>
-      <div class="hero-links">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="https://www.linkedin.com/in/nimo-benne-a92aa5232/" target="_blank" class="btn btn-ghost">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <a href="https://github.com/nimobenne" target="_blank" class="btn btn-ghost">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
+
+      <div class="hero-photo-wrap">
+        <!--
+          PHOTO: Add your headshot as images/headshot.jpg
+          Replace the div below with:
+          <img src="images/headshot.jpg" alt="Nimo Benne" class="hero-photo" />
+        -->
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span>Add headshot<br/>images/headshot.jpg</span>
+        </div>
       </div>
     </section>
 
+    <!-- EXPERIENCE -->
     <section id="experience">
-      <p class="section-label">// experience</p>
+      <p class="section-label">Experience</p>
       <h2>Where I've worked</h2>
-      <div class="experience-list">
+      <div class="exp-list">
 
-        <div class="exp-card">
-          <div class="exp-left">
+        <div class="exp-item">
+          <div>
             <div class="exp-role">Technical Sales Specialist</div>
             <div class="exp-company">HiveRadar Inc.</div>
-            <div class="exp-desc">Own the full sales cycle for edge computing and wireless networking solutions. Built EU channel pipeline targeting Benelux, DACH, and Nordic markets from scratch — first partner to commercial agreement in under 30 days. Engineered an agentic workflow: Apollo API piped into Claude with triggers and automation loops to run prospecting and qualification with minimal manual input.</div>
+            <div class="exp-desc">Own the full sales cycle for edge computing and wireless networking solutions from cold outreach through deployment. Built the EU channel pipeline targeting Benelux, DACH, and Nordic markets — first partner to commercial agreement in under 30 days. Engineered an Apollo and Claude workflow with triggers and automation loops that runs prospecting and qualification with minimal manual input.</div>
           </div>
-          <div class="exp-right">
+          <div class="exp-meta">
             <div class="exp-date">May 2026 — Present</div>
-            <div class="exp-tags">
-              <span class="tag green">Current</span>
-            </div>
+            <span class="badge badge-current">Current</span>
           </div>
         </div>
 
-        <div class="exp-card">
-          <div class="exp-left">
+        <div class="exp-item">
+          <div>
             <div class="exp-role">Professional Volleyball Player</div>
             <div class="exp-company">Baden Volleys SSC Karlsruhe, 1st Bundesliga</div>
             <div class="exp-desc">Competed as outside hitter in Germany's top professional volleyball league. Relocated abroad independently and managed full-season commitments before transitioning into tech.</div>
           </div>
-          <div class="exp-right">
+          <div class="exp-meta">
             <div class="exp-date">Jun 2025 — May 2026</div>
-            <div class="exp-tags">
-              <span class="tag">Germany</span>
-            </div>
+            <span class="badge badge-contract">Germany</span>
           </div>
         </div>
 
-        <div class="exp-card">
-          <div class="exp-left">
+        <div class="exp-item">
+          <div>
             <div class="exp-role">Sales Engineer</div>
             <div class="exp-company">Securicore</div>
             <div class="exp-desc">Owned technical qualification and solution scoping across cloud security and network infrastructure accounts. Supported enterprise sales cycles from initial discovery through proposal stage.</div>
           </div>
-          <div class="exp-right">
+          <div class="exp-meta">
             <div class="exp-date">Mar 2022 — Mar 2023</div>
-            <div class="exp-tags">
-              <span class="tag">Toronto</span>
-            </div>
+            <span class="badge badge-contract">Contract</span>
           </div>
         </div>
 
       </div>
     </section>
 
+    <!-- PROJECTS -->
     <section id="projects">
-      <p class="section-label">// projects</p>
+      <p class="section-label">Projects</p>
       <h2>Things I've built</h2>
-      <div class="projects-grid">
 
-        <a href="https://swipefy-psi.vercel.app" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(124,106,247,0.1)">🎵</div>
+      <div class="projects-featured">
+        <a href="https://swipefy-psi.vercel.app" target="_blank" class="project-card featured">
+          <div class="project-header">
+            <div>
+              <div class="project-name">Swipefy</div>
+            </div>
             <span class="project-arrow">↗</span>
           </div>
-          <div>
-            <div class="project-name">Swipefy</div>
-            <div class="project-desc">Social playlist competition platform. Daily music game with leaderboard, song nominations, and full admin dashboard.</div>
-          </div>
+          <p class="project-desc">Social playlist competition platform. Daily music game with leaderboard, song nominations, and a full admin dashboard. Built and deployed end-to-end.</p>
           <div class="project-tags">
             <span class="tag">Next.js</span>
             <span class="tag">Supabase</span>
             <span class="tag">TypeScript</span>
-            <span class="tag green">Live</span>
+            <span class="tag tag-live">Live</span>
           </div>
         </a>
 
-        <a href="https://github.com/nimobenne/volleymaps" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(74,222,128,0.08)">🏐</div>
+        <a href="https://github.com/nimobenne/claudeSync" target="_blank" class="project-card featured">
+          <div class="project-header">
+            <div>
+              <div class="project-name">claudeSync</div>
+            </div>
             <span class="project-arrow">↗</span>
           </div>
-          <div>
-            <div class="project-name">VolleyMaps</div>
-            <div class="project-desc">Volleyball pickup game finder with an interactive map and live game feed. Find or create pickup games near you.</div>
-          </div>
-          <div class="project-tags">
-            <span class="tag">Next.js</span>
-            <span class="tag">Supabase</span>
-            <span class="tag">Mapbox</span>
-          </div>
-        </a>
-
-        <a href="https://chat-bot-widget-two.vercel.app" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(124,106,247,0.1)">🤖</div>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div>
-            <div class="project-name">WidgetAI</div>
-            <div class="project-desc">AI-powered WhatsApp booking assistant for barbershops. Checks real Google Calendar availability and confirms bookings 24/7.</div>
-          </div>
-          <div class="project-tags">
-            <span class="tag">Next.js</span>
-            <span class="tag">OpenAI</span>
-            <span class="tag">Supabase</span>
-            <span class="tag green">Live</span>
-          </div>
-        </a>
-
-        <a href="https://github.com/berniebeeee/skincare-app" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(74,222,128,0.08)">🧴</div>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div>
-            <div class="project-name">SkincareApp</div>
-            <div class="project-desc">Skincare routine tracker and skin condition logger. Tracks products, routines, and daily skin logs to surface what works.</div>
-          </div>
-          <div class="project-tags">
-            <span class="tag">Next.js</span>
-            <span class="tag">Supabase</span>
-            <span class="tag">TypeScript</span>
-          </div>
-        </a>
-
-        <a href="https://github.com/nimobenne/claudeSync" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(124,106,247,0.1)">⚡</div>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div>
-            <div class="project-name">claudeSync</div>
-            <div class="project-desc">Open-source template to sync your Claude AI brain across every machine. One repo, every device, same context.</div>
-          </div>
+          <p class="project-desc">Open-source template to sync your Claude AI configuration across every machine. One repo, every device, same context — the same setup that powers my prospecting workflows.</p>
           <div class="project-tags">
             <span class="tag">Open Source</span>
             <span class="tag">Claude</span>
             <span class="tag">DevTools</span>
-            <span class="tag green">Public</span>
+            <span class="tag tag-live">Public</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="projects-secondary">
+        <a href="https://chat-bot-widget-two.vercel.app" target="_blank" class="project-card">
+          <div class="project-header">
+            <div class="project-name">WidgetAI</div>
+            <span class="project-arrow">↗</span>
+          </div>
+          <p class="project-desc">AI WhatsApp booking assistant for barbershops with real Google Calendar integration.</p>
+          <div class="project-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">OpenAI</span>
+            <span class="tag tag-live">Live</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/nimobenne/volleymaps" target="_blank" class="project-card">
+          <div class="project-header">
+            <div class="project-name">VolleyMaps</div>
+            <span class="project-arrow">↗</span>
+          </div>
+          <p class="project-desc">Volleyball pickup game finder with interactive map and live game feed.</p>
+          <div class="project-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Mapbox</span>
           </div>
         </a>
 
         <a href="https://github.com/nimobenne/chatBotAI" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(124,106,247,0.1)">💬</div>
+          <div class="project-header">
+            <div class="project-name">chatBotAI</div>
             <span class="project-arrow">↗</span>
           </div>
-          <div>
-            <div class="project-name">chatBotAI</div>
-            <div class="project-desc">Browser-based AI customer support chatbot with conversation history, OpenAI responses, and escalation to human support.</div>
-          </div>
+          <p class="project-desc">Web-based AI customer support chatbot with human escalation and conversation history.</p>
           <div class="project-tags">
             <span class="tag">Python</span>
             <span class="tag">Flask</span>
-            <span class="tag">OpenAI</span>
           </div>
         </a>
-
-        <a href="https://github.com/nimobenne/chessGame" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(255,255,255,0.04)">♟️</div>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div>
-            <div class="project-name">Chess Game</div>
-            <div class="project-desc">Fully playable browser chess game built with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies.</div>
-          </div>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-          </div>
-        </a>
-
-        <a href="https://github.com/nimobenne/pdfToAudio" target="_blank" class="project-card">
-          <div class="project-top">
-            <div class="project-icon" style="background:rgba(124,106,247,0.1)">🔊</div>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div>
-            <div class="project-name">PDF to Audio</div>
-            <div class="project-desc">Browser-based tool that converts PDF documents to audio using web APIs. Built as an accessibility experiment.</div>
-          </div>
-          <div class="project-tags">
-            <span class="tag">HTML</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Web APIs</span>
-          </div>
-        </a>
-
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about">
-      <p class="section-label">// about</p>
+      <p class="section-label">About</p>
       <h2>A bit about me</h2>
-      <div class="about-grid">
+      <div class="about-layout">
+        <div class="about-text">
+          <p class="about-bio">I grew up in the Netherlands, played professional volleyball in Germany's Bundesliga, and moved to Toronto to work in tech. I studied Computer Science at the University of the Fraser Valley while competing for the UFV Cascades in Canada West for six years.</p>
+          <p class="about-bio">I work in technical sales and build tools on the side — usually because I need them at work. The Apollo and Claude integration I use for prospecting started as an experiment and turned into something I run every day.</p>
 
-        <div class="about-card wide">
-          <h3>background</h3>
-          <p>I grew up in the Netherlands, played professional volleyball in Germany's Bundesliga, and moved to Toronto to build a career in tech. I studied Computer Science at the University of the Fraser Valley while competing at the Canada West level for six years. Now I work in technical sales and build things on the side because I can't help it.</p>
-        </div>
-
-        <div class="about-card">
-          <h3>currently</h3>
-          <p>Technical Sales Specialist at HiveRadar Inc. in Toronto. I own the full sales cycle for edge computing and wireless networking solutions and build the tools I need to sell smarter.</p>
-        </div>
-
-        <div class="about-card">
-          <h3>languages</h3>
-          <div class="lang-pills">
-            <span class="lang-pill">Dutch — native</span>
-            <span class="lang-pill">German — native</span>
-            <span class="lang-pill">English — fluent</span>
-          </div>
-        </div>
-
-        <div class="about-card">
-          <h3>stack</h3>
-          <p>Next.js, TypeScript, Python, Supabase, Vercel. I pick up whatever the project needs.</p>
-        </div>
-
-        <div class="about-card">
-          <h3>sport</h3>
-          <p>Outside hitter. Six years Canada West. One season in the German Bundesliga with Baden Volleys. Canada West 2nd Team All-Star. 31st player in conference history to reach 1,000 career kills.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="contact">
-      <p class="section-label">// contact</p>
-      <h2>Get in touch</h2>
-      <div class="contact-grid">
-
-        <div class="contact-card wide">
-          <h3>reach out</h3>
-          <p>Open to roles in tech sales, channel/partner sales, or EU-facing BD in Toronto. Also happy to talk about projects or just connect.</p>
-        </div>
-
-        <div class="contact-card">
-          <h3>links</h3>
-          <a href="mailto:nimobenne@gmail.com">nimobenne@gmail.com</a>
-          <a href="https://github.com/nimobenne" target="_blank">github.com/nimobenne</a>
-          <a href="https://www.linkedin.com/in/nimo-benne-a92aa5232/" target="_blank">LinkedIn</a>
-        </div>
-
-        <div class="contact-card">
-          <h3>linkedin profile</h3>
-          <div class="li-badge-wrap">
-            <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="nimobenne" data-version="v1">
-              <a class="badge-base__link LI-simple-link" href="https://ca.linkedin.com/in/nimobenne?trk=profile-badge">Nimo Benne</a>
+          <div class="about-facts">
+            <div>
+              <div class="about-fact-label">Languages</div>
+              <div class="lang-pills">
+                <span class="lang-pill">Dutch — native</span>
+                <span class="lang-pill">German — native</span>
+                <span class="lang-pill">English — fluent</span>
+              </div>
+            </div>
+            <div>
+              <div class="about-fact-label">Education</div>
+              <div class="about-fact-value">BSc Computer Science, University of the Fraser Valley</div>
+            </div>
+            <div>
+              <div class="about-fact-label">Sport</div>
+              <div class="about-fact-value">Outside hitter. Canada West 2nd Team All-Star. 31st player in conference history to reach 1,000 career kills. Netherlands U20 European Championships.</div>
+            </div>
+            <div>
+              <div class="about-fact-label">Stack</div>
+              <div class="about-fact-value">Next.js · TypeScript · Python · Supabase · Vercel</div>
             </div>
           </div>
         </div>
 
+        <div class="vb-photo-wrap">
+          <!--
+            VOLLEYBALL PHOTO: Add as images/volleyball.jpg
+            Replace the div below with:
+            <img src="images/volleyball.jpg" alt="Nimo Benne playing for Baden Volleys" class="vb-photo" />
+          -->
+          <div class="vb-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 7.07 2.93M4.93 4.93A10 10 0 0 0 2 12"/></svg>
+            <span>Add volleyball photo<br/>images/volleyball.jpg</span>
+          </div>
+          <p class="vb-caption">Baden Volleys SSC Karlsruhe, Bundesliga 2025-26</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <p class="section-label">Contact</p>
+      <h2>Get in touch</h2>
+      <div class="contact-layout">
+        <div class="contact-text">
+          <p class="contact-intro">Open to roles in tech sales, channel/partner sales, or EU-facing BD in Toronto. Also happy to talk about projects or just connect.</p>
+          <div class="contact-links">
+            <a href="mailto:nimobenne@gmail.com" class="contact-link">
+              <span class="contact-link-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+              </span>
+              nimobenne@gmail.com
+            </a>
+            <a href="https://github.com/nimobenne" target="_blank" class="contact-link">
+              <span class="contact-link-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              </span>
+              github.com/nimobenne
+            </a>
+            <a href="https://www.linkedin.com/in/nimobenne" target="_blank" class="contact-link">
+              <span class="contact-link-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </span>
+              linkedin.com/in/nimobenne
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-badge">
+          <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="nimobenne" data-version="v1">
+            <a class="badge-base__link LI-simple-link" href="https://ca.linkedin.com/in/nimobenne?trk=profile-badge">Nimo Benne</a>
+          </div>
+        </div>
       </div>
     </section>
 
   </main>
 
   <footer>
-    <p>© 2026 nimobenne</p>
+    <p>© 2026 Nimo Benne</p>
     <div class="footer-links">
       <a href="https://github.com/nimobenne" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/nimo-benne-a92aa5232/" target="_blank">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/nimobenne" target="_blank">LinkedIn</a>
     </div>
   </footer>
 
