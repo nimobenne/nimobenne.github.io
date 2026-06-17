@@ -351,6 +351,18 @@
       display: flex;
       align-items: flex-start;
     }
+    .li-badge-wrap iframe,
+    .li-badge-wrap .LI-profile-badge {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    /* fallback link shown if JS blocked */
+    .badge-base__link {
+      color: var(--accent2);
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .badge-base__link:hover { color: var(--text); }
 
     footer {
       border-top: 1px solid var(--border);
