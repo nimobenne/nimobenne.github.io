@@ -840,10 +840,21 @@
   </footer>
 
   <script type="module">
-    import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
+    import { animate, inView, scroll, stagger } from "https://cdn.jsdelivr.net/npm/motion@11/+esm";
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const easeOut = [0.16, 1, 0.3, 1];
+
+    // Nav tightens up and gains a hairline shadow once you've actually
+    // started reading, not on the first pixel of scroll.
+    const nav = document.querySelector("nav");
+    if (nav) {
+      scroll((progress, info) => {
+        const t = Math.min(info.y.current / 80, 1);
+        nav.style.boxShadow = `0 1px 0 rgba(0,0,0,${(t * 0.06).toFixed(3)})`;
+        nav.style.backdropFilter = t > 0 ? `blur(${(t * 6).toFixed(1)}px)` : "none";
+      });
+    }
 
     if (!reduceMotion) {
       animate(
@@ -859,6 +870,17 @@
         },
         { margin: "0px 0px -10% 0px" }
       );
+
+      // Portrait drifts into a gentle zoom as the hero scrolls past —
+      // bounded to the hero's own scroll range, not a multi-layer parallax.
+      const heroSection = document.querySelector("#hero");
+      const heroPhoto = document.querySelector(".hero-photo");
+      if (heroSection && heroPhoto) {
+        scroll(
+          animate(heroPhoto, { scale: [1, 1.08] }, { ease: "linear" }),
+          { target: heroSection, offset: ["start start", "end start"] }
+        );
+      }
     }
   </script>
 
