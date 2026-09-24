@@ -239,7 +239,7 @@
       height: 220px;
       border-radius: 50%;
       object-fit: cover;
-      object-position: center 45%;
+      object-position: center 55%;
       border: 3px solid var(--border);
       background: var(--bg2);
       display: block;
@@ -823,24 +823,25 @@
       </div>
 
       <div class="projects-secondary">
-        <div class="project-card">
+        <a href="https://github.com/nimobenne/inventree-build-readiness" target="_blank" class="project-card">
           <div class="project-header">
             <div class="project-name">Build-Readiness Dashboard</div>
+            <span class="project-arrow">↗</span>
           </div>
-          <p class="project-desc">Sits on top of InvenTree and answers the only question the build floor cares about: which hardware units are cleared to ship and what the rest are still waiting on. Tracks reservations, QA state and delivery per serialized unit.</p>
+          <p class="project-desc">Sits on top of InvenTree and answers the only question a build floor cares about: which kits can ship today and which part is the bottleneck on the rest. Read-only by default, so it cannot corrupt the inventory system it reads. Running in production, published here with the product data swapped out.</p>
           <div class="project-tags">
             <span class="tag">Python</span>
             <span class="tag">Flask</span>
             <span class="tag">Docker</span>
-            <span class="tag">Internal tool</span>
+            <span class="tag">In production</span>
           </div>
-        </div>
+        </a>
 
         <div class="project-card">
           <div class="project-header">
             <div class="project-name">autoclipper</div>
           </div>
-          <p class="project-desc">Runs a short-form video channel end to end. Pulls long-form source, picks the moments worth cutting, reframes them vertical, renders captions and mixes audio, then schedules the post across platforms. Roughly 10,000 lines, in production daily.</p>
+          <p class="project-desc">Built for a client who needed a short-form channel run without a video editor on payroll. Pulls long-form source, picks the moments worth cutting, reframes them vertical, renders captions and mixes audio, then schedules the post across platforms. Roughly 10,000 lines, running daily.</p>
           <div class="project-tags">
             <span class="tag">Python</span>
             <span class="tag">ffmpeg</span>
