@@ -137,6 +137,11 @@
 
     section { padding: 96px 0 48px; }
 
+    /* ASK: site assistant (WidgetAI) */
+    #ask { padding-top: 48px; }
+    .ask-intro { color: var(--muted); max-width: 560px; margin: 8px 0 24px; }
+    #ask-widget { max-width: 560px; min-height: 120px; }
+
     /* HERO */
     #hero {
       padding-top: calc(var(--nav-h) + 72px);
@@ -718,6 +723,14 @@
       </div>
     </section>
 
+    <!-- ASK -->
+    <section id="ask" aria-labelledby="ask-title">
+      <p class="section-label">Ask</p>
+      <h2 id="ask-title">Ask about my work</h2>
+      <p class="ask-intro">An AI site assistant I built. It answers only from this page and links to the section it used.</p>
+      <div id="ask-widget"></div>
+    </section>
+
     <!-- EXPERIENCE -->
     <section id="experience">
       <p class="section-label">Experience</p>
@@ -829,6 +842,20 @@
       </div>
 
       <div class="projects-secondary">
+        <a href="https://chat-bot-widget-two.vercel.app/" target="_blank" rel="noopener" class="project-card">
+          <div class="project-header">
+            <h3 class="project-name">WidgetAI site assistant</h3>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </div>
+          <p class="project-desc">A small AI assistant any website can add with one line. It answers only from that site's own pages, links to the part it used, and says no to everything else. Hard limits stop it from costing more than a few cents a day. It runs on this page, in the Ask section.</p>
+          <div class="project-tags">
+            <span class="tag">TypeScript</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">OpenAI API</span>
+            <span class="tag">Postgres</span>
+          </div>
+        </a>
+
         <a href="https://github.com/nimobenne/inventree-build-readiness" target="_blank" rel="noopener" class="project-card">
           <div class="project-header">
             <h3 class="project-name">Build-Readiness Dashboard</h3>
@@ -1045,6 +1072,7 @@
       }
     }
   </script>
+  <script src="https://chat-bot-widget-two.vercel.app/widget.js" data-site="nimo" data-mode="inline" data-target="#ask-widget" data-accent="var(--accent)" async></script>
 
 </body>
 </html>
